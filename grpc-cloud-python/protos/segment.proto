@@ -1,0 +1,53 @@
+/* proto语法版本，proto2、proto3 */
+syntax = "proto3";
+
+//package proto;
+
+option java_package = "com.qd.nlp.springcloud.proto.segment";
+option java_outer_classname = "TextSegment";
+option java_multiple_files = true;
+//option java_generic_services = true;
+
+/* 定义请求，响应消息结构对象 */
+message WordNature {
+  string word = 1;
+  string nature = 2;
+}
+
+message DictionaryRequest {
+  repeated WordNature wordNature = 1;
+}
+
+message DictionaryResponse {
+  bool result = 1;
+}
+
+message SegmentRequest {
+  repeated WordNature wordNature = 1;
+  repeated string text = 2;
+  string namespace = 3;
+}
+
+message SegmentWordNature {
+  repeated WordNature wordNature = 1;
+}
+
+message SegmentResponse{
+  repeated SegmentWordNature segment = 1;
+}
+
+message HeartbeatRequest {
+  string request = 1;
+}
+
+message HeartbeatResponse {
+  string response = 1;
+}
+
+/* 定义service */
+service TextSegmentService {
+  rpc addExternalWord (DictionaryRequest) returns (DictionaryResponse);
+  rpc removeExternalWord (DictionaryRequest) returns (DictionaryResponse);
+  rpc segment (SegmentRequest) returns (SegmentResponse);
+  rpc heartbeat (HeartbeatRequest) returns (HeartbeatResponse);
+}

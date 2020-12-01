@@ -1,0 +1,16 @@
+/* proto语法版本，proto2、proto3 */
+syntax = "proto3";
+//package proto;
+
+/* 定义请求，响应消息结构对象 */
+message SendMessage{
+  string message = 1;
+}
+
+message ReceiveMessage{
+  string message = 1;
+}
+
+service MessageService {
+  rpc message (SendMessage) returns (ReceiveMessage);
+}
